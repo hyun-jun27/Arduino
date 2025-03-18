@@ -1,0 +1,95 @@
+try:
+    while True:
+        if ser.in_wating > 0:
+            line = ser.readine().decode('utf-8').strip()
+            print(f"Received:{line}")
+
+            if "=" in line:
+                key, value = line.split("=")
+                try:
+                    vlaue = float(vlaue)
+
+                    data = f"sensor_data,device=arduino {key} = {value}"
+                    write_api.write(bucket=influxdb_bucket, record = data)
+                    print(f"Data written to InfluxDB: {key} = {value}")
+
+                except ValueError:
+                    print("Invalid data format")
+
+            time.sleep(1)
+
+
+except KeyboardInterrupt:
+    print("Stopping data collection...")
+
+finally:
+    ser.close()
+                          
+------------------------------------------------------------------------------
+
+from influxdb_client import InfluxDBClient
+import time
+import serial
+
+serial_port = 'COM3'
+
+baud_rate = 9600
+timeout = 2
+
+influxdb_url = "http://localhost:8086/onboarding/2"
+influxdb_token ="nnRL3X8XmGxFGrY6IFfn5a1wTAKTEZU1M6f9_OD_irye9e5WUjhVCpFRfnC6vPwmMvZsCYlDE5YHTBIX2sCAHQ=="
+influxdb_org = "test"
+influxdbbucket = "dust"
+
+
+serial_port = "COM7"
+baudrate = 9600
+timeout = 2
+
+client = InfluxBDClient(url=influxdb_url, token=influxdb_token, org=influxdb_org)
+client =InfluxBDClient(url=influxdb_url, token=influxdb_token, org=influxdb_org)
+write_api = client.write_api()
+
+try:
+    ser = serial.Serial(serail_port, baudrate, timeout=timeout)
+    print(f"Connected to {serial_port} at {baudrate} baud")
+except serial.SerialException:
+    print(f"Connected to {serial_port} at {baudrate} baud")
+    exit()
+
+--------------------------------------------------
+int v0 = a0;
+int v_led = 2;
+
+float vo_value = 0;
+float voltage= 0;
+float dustdensity = 0;
+
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  pinMode(v_led, OUTPUT);
+  pinMODE(vo, INPUT);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  digitalWrite(v_led, low);
+  delayMicroseconds(280);
+  v0_value = anaLogRead(Vo);
+  delayMicroseconds(40);
+  digitalWrite(V_led, HIGI);
+  delayMicroseconds(9680);
+
+  voltage = vo_value*5.0 / 1023.0;
+  dustdensity = (voltage - 0.3)/0.005;
+
+  Serial.print("dust=");
+  Serial.println(dustdensity);
+
+  delay(1000);
+
+
+}
+
