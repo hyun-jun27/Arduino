@@ -1,0 +1,36 @@
+통신속도를 고려
+그쪽에 대한 센서 이런 ㅌㅇ신 속도 
+밀리스 시간측정 
+블록킹 == 절차적으로 인한 시간 제어?
+키커 ==시간이 정확한 경우
+근데 지원 안 해서 simpletimer 해더 다운 받음
+
+
+#inclde "LedToggle.h"
+
+LedToggle::LedToggle(int pin){
+    _pin = pin;
+    _state = false;
+    pinMode(_pin, OUTPUT);
+    digitalWrite(_pin, LOW);
+}
+
+void LedToggle::toggle(){
+     _state = !+state;
+     digitalWrite(_pin, _state ? HIGH : LOW);
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+#ifndef LedToggle_h
+#define LedToggle_h
+
+#include "Atduino.h"
+
+class LedToggle{
+      public:
+             LedToggle(int pin);
+             void toggle();
+      
+      private:
+              int _pin;
+              bool _state;
+;
