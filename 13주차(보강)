@@ -1,0 +1,73 @@
+WiFi, Mac 계층과 직비에 대해 배움
+
+AP + STA 으로 구성
+AP: 유무선 공유기 와 STA: 노트북, 스마트폰 등
+
+Wi-Fi Service Set
+두 가지 BSS(Basic Service Set) / ESS(Extended Service Set)
+
+MAC 접근 방식 중 하나
+• CSMA-CA
+– Carrier sense Multiple Access with Collision Avoidance
+– CS (Carrier Sense) : 네트워크가 현재 사용 중인지 알아냄
+– MA (Multiple Access) : 네트워크가 비어있으면 누구든 사용 가능
+– CA (Collision Avoidance) : 충돌 회피
+
+MAC계층의 채널 문제점 
+• 충돌 (컬리젼, Collision)
+– 두 개 이상의 노드가 같은 시간대에 같은 노드에게
+패킷을 전송
+– 수신 측은 데이터를 제대로 읽을 수 없게 됨
+– 충돌을 방지하고자, 채널이 사용되지 않는 것 같아
+도 랜덤한 시간 동안 백오프함 (기다림)
+– RTS, CTS 를 사용하면,
+충돌이 발생할 확률이 줄어듦
+• Hidden Terminal Problem (숨겨진 노드 문제)
+– 중간 터미널(A)는 양쪽 터미널(B,C)와 통신이 가능
+– 양쪽 터미널(B,C)는 서로의 통신을 감지하지 못함
+• 신호 전송 범위가 달라서 서로의 존재를 알 수가 없음
+• 즉, Carrier Sening이 힘듦  RTS, CTS 를 사용하는 이유
+
+다양한 계층들
+• 물리 (PHY) 계층
+– DSSS (Direct Sequence Spread Spectrum)
+• 매체 접근제어 (MAC) 계층
+– 다수의 기기들이 전송할 때 서로 충돌을 회피
+• 네트워크 (NWK) 계층
+– 다수의 노드들이 네트워크를 형성
+• 응용지원 (APS, Application Support Sub-Layer)계층
+– 응용 (Application)이 네트워크를 사용할 수 있도록 지원
+• 응용 (APL, APpLication)
+– 응용 프로그램 동작
+
+MAC 계층 특징
+– 세 종류의 기기가 정의됨
+• Network Coordinator (NC) : 네트워크 코디네이터
+– 네트워크를 관리함
+• Full Function Device(FFD) : 전기능기기
+• Reduced Function Device(RFD) : 축소기능기기
+– MAC의 선택 사양
+• 비콘 없는 (Non-Beacon) 통신
+– Non-slotted CSMA-CA 통신, 수신 패킷 성공을 위해 확인 응답
+• 비콘 (Beacon) 사용 통신
+– Slotted CSMA-CA 통신, 슈퍼 프레임 사용
+
+• 슈퍼 프레임 (Super Frame) 구조
+– 최대 16개의 슬롯(Slot)으로 구성
+– 슈퍼프레임은 비콘 (Beacon), CAP(Contention Access Period),
+CFP(Contention Free Period)으로 구성
+• 비활성화 구간이 있을 수 있음
+– 슈퍼프레임은 최소 15ms에서 최소 245초 가능
+– 항상 비콘으로 시작
+• 비콘은 PAN 코디네이터 (네트워크 코디네이터)가 송신
+
+• CAP, 경쟁 구간
+– 슬롯 단위의 시간에 맞추어 송수신
+• CFP, 경쟁 없이 송수신하는 구간
+– 코디네이터가 슬롯을 예약하여 지그비 기기들이 그 슬롯 시간에 송
+수신
+• GTS : 예약된 슬롯을 GTS (Guaranteed Time Slot)이라 함
+– CFP는 0~7개의 슬롯까지 할당 가능
+• Beacon (비콘)
+– 비콘에 따라 시간 동기화를 하여 슬롯 단위 송수신 가능
+– GTS가 어느 기기에 할당되었는지 알려줌
